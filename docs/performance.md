@@ -17,7 +17,7 @@ Dieses Dokument beschreibt die Hardware‑, Modell‑ und Inferenz‑Konfigurati
 
 ## 3. Konfiguration der Inferenz
 
-- **Kontextfenster**: 8192 Tokens
+- **Kontextfenster**: 16384 Tokens
 - **Flash‑Attention**: aktiv (`OLLAMA_FLASH_ATTENTION=1`)
 - **KV‑Cache‑Typ**: `q8_0` (`OLLAMA_KV_CACHE_TYPE=q8_0`)
 
@@ -25,19 +25,19 @@ Dieses Dokument beschreibt die Hardware‑, Modell‑ und Inferenz‑Konfigurati
 
 | Messung | Wert | Einheit | Bemerkung |
 |---------|------|---------|-----------|
-| Tokens pro Sekunde | 31,6 | Tokens/s | Gemessen im Echtzeit‑Chat‑Modus mit dem OpenCode UI |
+| Tokens pro Sekunde |  | Tokens/s | Gemessen im Echtzeit‑Chat‑Modus mit dem OpenCode UI |
 | GPU‑Speicherverbrauch | ~12 GB | GB | Modellgröße + KV‑Cache |
 | CPU‑Verbrauch | < 10 % | % | Hauptlast liegt auf der GPU |
-| Kontextfenster | 8192 | Tokens | Basiskonfiguration für schnelle Antwortzeiten |
+| Kontextfenster | 16384 | Tokens | Basiskonfiguration für schnelle Antwortzeiten |
 
 > **Hinweis**: Diese Werte wurden in einer stabilen Umgebung ohne Hintergrundprozesse gemessen.
 
 ## 5. Kontextfenster‑Erklärung
 
-- **8192 Tokens** ist ein Kompromiss zwischen **Verarbeitungszeit** und **Antwortqualität**. Größere Fenster ermöglichen längere Konversationen, kosten jedoch mehr Speicher.
-- Wir haben 8192 gewählt, weil das Modell auf einem 24 GB Unified Memory‑System problemlos läuft und die Antwortzeit akzeptabel bleibt.
+- 16384 Tokens wurden auf dem MacBook Pro M4 Pro mit 24 GB Unified Memory erfolgreich verwendet. Allgemeine Stabilität und Performance bei langen Aufgaben sind nicht systematisch nachgewiesen.
+- Wir haben 16384 gewählt, weil das Modell auf einem 24 GB Unified Memory‑System problemlos läuft und die Antwortzeit akzeptabel bleibt.
 
-## 6. Möglichkeiten zur Erhöhung auf 16K / 32K
+## Optionale Erhöhung über 16K
 
 | Schritt | Beschreibung |
 |---------|--------------|

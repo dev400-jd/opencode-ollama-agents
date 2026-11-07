@@ -8,7 +8,7 @@ Im Folgenden findest du bekannte Probleme, typische Fehlermeldungen und Lösunge
 **Lösung**:
 ```bash
 brew install ollama
-export PATH="$PATH:/usr/local/bin"
+export PATH="$PATH:/opt/homebrew/bin"
 ```
 
 ## 2. `could not connect to a running Ollama instance`
@@ -25,7 +25,7 @@ ps aux | grep ollama
 
 - Prüfe Log‑Ausgaben: `ollama serve & tail -f ollama.log`
 - Stelle sicher, dass keine andere Instanz den Port 11434 nutzt.
-- Lösche ggf. die Ollama‑Cache‑Dateien: `rm -rf ~/.ollama`
+- Lösche ggf. die Ollama‑Cache‑Dateien: *Vollständiger Reset löscht Modelle und Konfiguration, für gewöhnliche Verbindungs‑ oder Modellprobleme nicht empfohlen.*
 
 ## 4. Port 11434 bereits belegt
 
@@ -39,7 +39,7 @@ kill -9 <PID>
 
 - Prüfe, ob das Modell im Verzeichnis `~/.ollama/models` vorhanden ist.
 - Starte Ollama neu: `killall ollama && ollama serve`
-- In OpenCode: `opencode launch opencode --model gpt-oss:20b`
+- In OpenCode: `ollama launch opencode --model gpt-oss:20b`
 
 ## 6. Metal‑Out‑of‑Memory‑Fehler
 

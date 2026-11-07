@@ -62,20 +62,25 @@ ps -ef | grep ollama
 
 ```bash
 ollama pull gpt-oss:20b
+ollama list
+ollama ps
+opencode --version
+opencode models
 ```
+
+Das Modell unterstützt laut Ollama-Metadaten 131072 Kontext‑Tokens, die getestete Serverkonfiguration verwendet aber 16384 Tokens.
 
 Dies lädt das Modell aus dem Internet herunter. Nach dem Download ist die Inferenz **offline** möglich.
 
 ## 7. Ollama für 8192 Tokens, Flash Attention und Q8‑KV‑Cache konfigurieren
 
 ```bash
-export OLLAMA_FLASH_ATTENTION=1
-export OLLAMA_KV_CACHE_TYPE=q8_0
-export OLLAMA_CONTEXT_LENGTH=8192
+OLLAMA_FLASH_ATTENTION=1 OLLAMA_KV_CACHE_TYPE=q8_0 OLLAMA_CONTEXT_LENGTH=16384 ollama serve
 
-# Dann Ollama neu starten, damit die Umgebungsvariablen gelten
-killall ollama || true
-ollama serve &
+# Variablen:
+# - OLLAMA_FLASH_ATTENTION aktiviert Flash Attention für schnellere Berechnungen.
+# - OLLAMA_KV_CACHE_TYPE q8_0 wählt einen kompakten KV‑Cache‑Typ.
+# - OLLAMA_CONTEXT_LENGTH 16384 erweitert die maximale Token‑Länge des Modells.
 ```
 
 ## 8. Modell lokal testen
@@ -89,7 +94,7 @@ Du solltest eine Antwort vom Modell erhalten.
 ## 9. OpenCode mit Ollama verbinden
 
 ```bash
-opencode launch opencode --model gpt-oss:20b
+ollama launch opencode --model gpt-oss:20b
 ```
 
 OpenCode startet die Agenten‑Umgebung und verbindet sich automatisch mit dem lokal laufenden Ollama‑Server.

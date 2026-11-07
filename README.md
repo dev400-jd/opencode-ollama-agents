@@ -23,33 +23,48 @@ OpenCode ──► Ollama API (http://127.0.0.1:11434) ──► local GPT‑OSS
 | Komponente | Spezifikation | Version |
 |------------|--------------|---------|
 | Mac | MacBook Pro (M4 Pro, 24 GB Unified Memory) | – |
-| macOS | 14.x (Monterey, Ventura, oder neuer) | – |
+| macOS | 14.x (Sonoma oder neuer) | – |
 | Homebrew | 3.x | – |
-| OpenCode | 0.1.0 (oder neuer) | – |
+| OpenCode | 2.2.4 (geprüft) | – |
 | Ollama | 0.40.15 | – |
 | Ollama‑Backend | `llama.cpp` | – |
 | Modell | `gpt-oss:20b` (MXFP4‑Quantisierung) | – |
 | Netzwerk | Internetverbindung zum Modell‑Download | – |
 
-## Quickstart
+## Getestete Softwareversionen
+
+- macOS 14.x (Sonoma)
+- OpenCode v2.2.4
+- Ollama v0.40.15
+- Modell: gpt-oss:20b
+- Laufzeitkontext: 16384 Tokens
+
 
 1. **Repository klonen**
    ```bash
    git clone https://github.com/your-org/opencode-ollama-agents.git
    cd opencode-ollama-agents
    ```
-2. **Setup‑Guide lesen**
+
+2. **Ollama installieren und Modell herunterladen**
    ```bash
-   cat docs/setup-macos.md | less
-   ```
-3. **Setup ausführen** – folgen Sie den Schritten im Setup‑Guide.
-4. **Agenten starten** – nach erfolgreichem Setup starten Sie OpenCode in einem Git‑Repository:
-   ```bash
-   cd your-project
-   opencode start
+   brew install ollama
+   ollama pull gpt-oss:20b
    ```
 
-> **Hinweis**: Die Modell‑Downloads erfordern eine Internetverbindung. Nach dem Download läuft die Inferenz **offline**.
+3. **Ollama Server starten**
+   ```bash
+   OLLAMA_FLASH_ATTENTION=1 OLLAMA_KV_CACHE_TYPE=q8_0 OLLAMA_CONTEXT_LENGTH=16384 ollama serve
+   ```
+
+4. **OpenCode starten**
+   ```bash
+   ollama launch opencode --model gpt-oss:20b
+   ```
+
+> Details are in [docs/setup-macos.md](docs/setup-macos.md).
+
+
 
 ## Links zur detaillierten Dokumentation
 
