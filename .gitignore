@@ -45,3 +45,6 @@ yarn.lock
 # Sensitive files
 *.env
 *.secret
+
+# Local agent handoff
+/.agent-state.md

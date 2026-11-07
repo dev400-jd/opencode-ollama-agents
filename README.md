@@ -64,7 +64,44 @@ OpenCode ──► Ollama API (http://127.0.0.1:11434) ──► local GPT‑OSS
 
 > Details are in [docs/setup-macos.md](docs/setup-macos.md).
 
+## Arbeiten mit begrenztem Kontext
 
+Die [AGENTS.md](AGENTS.md) führt den lokalen Agenten durch gezielte Änderungen,
+Prüfungen und kurze Ergebnisberichte. Starte OpenCode im Repository. Die Regeln
+sollen unnötige Dateiausgaben und Wiederholungen reduzieren; ihre Wirkung auf
+Kontextverbrauch und Zuverlässigkeit ist noch nicht gemessen.
+
+Bearbeite überschaubare Aufgaben mit klaren Abnahmekriterien. Bei ungefähr
+65–70 % Kontextbelegung in der OpenCode-Anzeige kannst du eine Übergabe
+vorbereiten lassen. Diese Schwelle ist ein anfänglicher Versuchswert:
+
+> Schreibe den aktuellen Arbeitsstand in `.agent-state.md`: Ziel,
+> Abnahmekriterien, geänderte Dateien, verifizierte Befehle und Ergebnisse
+> samt Stand, offene Punkte und nächster konkreter Schritt. Ersetze den
+> bisherigen Inhalt und bleibe unter ungefähr 200 Wörtern.
+
+Starte anschließend eine neue Sitzung im selben Repository mit:
+
+> Setze die Aufgabe aus `.agent-state.md` fort. Prüfe zuerst den aktuellen
+> Git-Stand und die relevanten Dateien; frühere Prüfergebnisse können veraltet sein.
+
+Die Zustandsdatei wird bei Bedarf erstellt und von Git ignoriert. Sie darf
+keine Geheimnisse oder vollständigen Logs enthalten. Eine neue Sitzung
+übernimmt den alten Gesprächsverlauf nicht automatisch.
+
+### Wirkung überprüfen
+
+Vergleiche dieselbe kleine Aufgabe in getrennten frischen Sitzungen auf
+demselben Ausgangsstand, einmal ohne und einmal mit den Projektregeln.
+Notiere jeweils die angezeigte Kontextbelegung vor der Aufgabe, nach dem
+Lesen und nach Änderung und Prüfung sowie erfolgreiche Prüfungen und nötige
+manuelle Eingriffe. Wiederhole den Vergleich, bevor du Verbesserungen ableitest.
+
+Modell und 16K-Laufzeitkonfiguration bleiben dabei gleich. Die wirksamen
+Kontextgrenzen und Komprimierungseinstellungen von OpenCode müssen separat
+geprüft werden; `AGENTS.md` verändert diese Einstellungen nicht. Technische
+Details: [Projektanweisungen](https://opencode.ai/docs/instructions/) und
+[Kontextkomprimierung](https://opencode.ai/docs/compaction/).
 
 ## Links zur detaillierten Dokumentation
 

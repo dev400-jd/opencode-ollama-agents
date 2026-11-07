@@ -2,6 +2,7 @@ import unittest
 import unittest.mock
 import urllib.error
 
+from scripts import doctor
 from scripts.doctor import main, MODEL_NAME
 
 
@@ -91,6 +92,20 @@ class TestDoctor(unittest.TestCase):
         exit_code = main()
         # Should succeed with correct parser
         self.assertEqual(exit_code, 0)
+
+
+# New tests for empty lines
+class TestCheckModelPresent(unittest.TestCase):
+    def test_ignore_blank_lines(self):
+        # Simulate output with blank and whitespace-only lines
+        mock_output = "\n   \ngpt-oss:20b\n"  # note trailing newline
+        with unittest.mock.patch.object(doctor, "run_command", return_value=mock_output):
+            self.assertTrue(doctor.check_model_present(), "Model should be detected and blank lines ignored")
+
+    def test_only_blank_lines(self):
+        mock_output = "\n   \n\n"
+        with unittest.mock.patch.object(doctor, "run_command", return_value=mock_output):
+            self.assertFalse(doctor.check_model_present(), "No model present should return False")
 
 
 if __name__ == "__main__":
