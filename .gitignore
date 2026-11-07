@@ -1,0 +1,47 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+Icon
+
+# Files that might appear in the root of a volume
+ehthumbs.db
+Thumbs.db
+
+# Python
+*.py[cod]
+__pycache__/
+*.so
+*.dylib
+*.egg-info/
+dist/
+build/
+venv/
+.env
+.env.*
+
+# Node.js
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+
+# IDEs
+.idea/
+.vscode/
+*.sublime-workspace
+*.sublime-project
+
+# OS generated files
+*.swp
+*.swo
+*.lock
+
+# Sensitive files
+*.env
+*.secret
