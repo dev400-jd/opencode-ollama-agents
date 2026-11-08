@@ -66,6 +66,12 @@ OpenCode ──► Ollama API (http://127.0.0.1:11434) ──► local GPT‑OSS
 
 ## Arbeiten mit begrenztem Kontext
 
+Fuer automatische kleine Arbeitspakete ist das Profil `coordinator` mit
+`test-worker` fuer Tests und `worker` fuer Code eingerichtet. Sie arbeiten
+nacheinander. Start im Repository: `opencode --standalone`.
+Alle verwenden lokal `gpt-oss:20b`. Ablauf, Grenzen und Pruefung stehen in
+[Kleine Aufgaben mit frischem Kontext](docs/delegation.md).
+
 Die [AGENTS.md](AGENTS.md) führt den lokalen Agenten durch gezielte Änderungen,
 Prüfungen und kurze Ergebnisberichte. Starte OpenCode im Repository. Die Regeln
 sollen unnötige Dateiausgaben und Wiederholungen reduzieren; ihre Wirkung auf
@@ -97,9 +103,10 @@ Notiere jeweils die angezeigte Kontextbelegung vor der Aufgabe, nach dem
 Lesen und nach Änderung und Prüfung sowie erfolgreiche Prüfungen und nötige
 manuelle Eingriffe. Wiederhole den Vergleich, bevor du Verbesserungen ableitest.
 
-Modell und 16K-Laufzeitkonfiguration bleiben dabei gleich. Die wirksamen
-Kontextgrenzen und Komprimierungseinstellungen von OpenCode müssen separat
-geprüft werden; `AGENTS.md` verändert diese Einstellungen nicht. Technische
+Modell und 16K-Laufzeitkonfiguration bleiben dabei gleich. `opencode.json`
+legt nun passende Startwerte fuer Kontext und Komprimierung fest; Details
+stehen in der Delegationsanleitung. `AGENTS.md` selbst veraendert diese
+Einstellungen nicht. Technische
 Details: [Projektanweisungen](https://opencode.ai/docs/instructions/) und
 [Kontextkomprimierung](https://opencode.ai/docs/compaction/).
 

@@ -9,7 +9,7 @@ Antworte knapp auf Deutsch. Lies Dokumentation nur bei Bedarf.
 - Prüfe `git status --short`; erhalte vorhandene Änderungen.
 - Kläre Ziel und Abnahmekriterien aus dem Auftrag. Frage nur bei blockierender Unklarheit.
 - Untersuche relevante Stellen, ändere gezielt, prüfe das Ergebnis.
-- Bearbeite die Aufgabe mit einem Agenten. Delegiere nur auf ausdrücklichen Wunsch.
+- Im Profil `coordinator`: delegiere Tests an `test-worker`, Code/Dokumentation an `worker`, nacheinander. Arbeiter halten Paketgrenzen ein und delegieren nicht weiter.
 
 ## Kontext sparen
 
@@ -26,15 +26,18 @@ Antworte knapp auf Deutsch. Lies Dokumentation nur bei Bedarf.
 
 - Bei Fehlerbehebungen: Regressionstest zuerst fehlschlagen sehen, dann korrigieren und erneut prüfen.
 - Isoliere Fehlerfälle: Alle übrigen Voraussetzungen müssen erfolgreich simuliert sein.
+- Ergänze bestehende Tests; entferne sie nur auf Auftrag. Passe Produktivverhalten nicht allein an unvollständige Mocks an.
 - Python-Tests: `python3 -m unittest discover -s tests -v`.
 - Bei Diagnoseänderungen zusätzlich: `python3 scripts/doctor.py`; reale Ausgabe und Exitcode prüfen. Keine Dienste dafür installieren oder starten.
 - Bei reinen Dokumentationsänderungen genügen Diff- und Inhaltsprüfung.
 - Untersuche Widersprüche zwischen Tool-Ausgabe und Schlussfolgerung vor dem Abschluss.
+- Prüfe jedes Abnahmekriterium und den Diff auf unbeabsichtigte Löschungen, bevor du „fertig“ meldest.
 
 ## Arbeitsstand
 
 - Erstelle bei Übergaben `.agent-state.md` mit höchstens ungefähr 200 Wörtern. Ersetze den bisherigen Stand; keine Logs oder Geheimnisse.
 - Felder: Ziel, Abnahmekriterien, geänderte Dateien, verifizierte Befehle/Ergebnisse samt Stand, offene Punkte, nächster Schritt.
+- Übernimm alle offenen Anforderungen; die Übergabe muss ohne den alten Chat verständlich sein.
 - Lies sie beim Fortsetzen, falls vorhanden. Gleiche sie mit Git und aktuellem Auftrag ab; übernimm veraltete Angaben nicht ungeprüft.
 - Erfinde keine Kontext-Prozentwerte. Bereite bei angeforderter Übergabe den Stand vor; lösche oder komprimiere keine Sitzung eigenmächtig.
 

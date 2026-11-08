@@ -1,0 +1,21 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "ollama/gpt-oss:20b",
+  "default_agent": "coordinator",
+  "providers": {
+    "ollama": {
+      "package": "@ai-sdk/openai-compatible",
+      "settings": { "baseURL": "http://127.0.0.1:11434/v1" },
+      "models": {
+        "gpt-oss:20b": {
+          "limit": { "context": 16384, "output": 2048 }
+        }
+      }
+    }
+  },
+  "compaction": {
+    "auto": true,
+    "keep": { "tokens": 2000 },
+    "buffer": 4096
+  }
+}
