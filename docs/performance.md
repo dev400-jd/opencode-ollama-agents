@@ -61,3 +61,31 @@ Dieses Dokument beschreibt die Hardware‑, Modell‑ und Inferenz‑Konfigurati
 - **Problem**: wiederkehrende Metal‑Out‑of‑Memory‑Fehler bei längeren Agentenläufen.
 
 Derzeit bevorzugen wir GPT‑OSS 20B, weil es stabiler auf dem M4 Pro läuft und die GPU ohne Speicher‑Bottleneck arbeitet.
+
+### Erprobung: `qwen3.8:27b` (2026-11-14, beendet)
+
+GPT-OSS 20B bleibt das eingestellte Modell. Qwen wurde zusätzlich getestet;
+die Konfiguration wurde danach auf `gpt-oss:20b` zurückgestellt.
+
+- **Umstellung für einen Test**: Modellname in `opencode.json` (`model` und
+  Modelleintrag), den drei Profilen in `.opencode/agents/`, `MODEL_NAME` in
+  `scripts/doctor.py`, `tests/test_doctor.py` und `AGENTS.md` ersetzen, neue
+  OpenCode-Sitzung starten.
+- **Modell laut Ollama 0.40.15**: 18,2 GB, 27,8 Mrd. Parameter, NVFP4,
+  Runner MLX; Fähigkeiten: Tools, Thinking, Vision. Limits wie bisher:
+  16384 Kontext, 2048 Ausgabe.
+- **Nicht geprüft**: Zuverlässigkeit der Subagent-Aufrufe und ob 2048
+  Ausgabe-Tokens mit Thinking ausreichen; dazu kam es wegen des
+  Speicherfehlers nicht.
+- **Mögliche kleinere Alternative (ungetestet)**: `qwen3.5:9b-q8_0` (10 GB).
+
+| Datum | Aufgabe | Ergebnis | Auffälligkeiten |
+|-------|---------|----------|-----------------|
+| 2026-11-14 | `ollama run`, Kurzfragen (15–25 Tokens Prompt) | Erfolgreich, ~26 Tokens/s, Ladezeit 7–11 s | Speicher bereits ohne Kontext am Limit: Spitze 17,55 GiB bei 17,8 GiB Metal-Budget. Erster Prompt nach dem Laden ~10 s Aufwärmzeit. |
+| 2026-11-14 | Lesetest Koordinator (`opencode run`, 16384 Kontext) | Gescheitert, kein Arbeiteraufruf | Anfrage mit 513 Tokens lief (Spitze 18,61 GiB). Koordinator-Prompt mit 4563 Tokens brach viermal in Folge beim Einlesen mit Metal-Out-of-Memory ab (HTTP 500), jeweils mit frisch geladenem Modell. |
+
+**Befund 2026-11-14**: Mit Ollama 0.40.15 (MLX) passt `qwen3.8:27b` auf 24 GB
+nicht für den Agentenbetrieb: Der Fehler tritt schon beim ersten
+Koordinator-Prompt auf, nicht erst bei langen Läufen. Zusätzlich: Die
+Ollama-App startet ohne `OLLAMA_CONTEXT_LENGTH` mit 4096 Kontext; das Limit in
+`opencode.json` ändert daran nichts (prüfen mit `ollama ps`).

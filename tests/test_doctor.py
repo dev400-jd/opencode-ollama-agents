@@ -36,7 +36,8 @@ class TestDoctor(unittest.TestCase):
             return f"/usr/bin/{cmd}"
         mock_which.side_effect = which_side
 
-        with unittest.mock.patch("subprocess.check_output") as mock_co, \
+        with unittest.mock.patch("builtins.print") as mock_print, \
+             unittest.mock.patch("subprocess.check_output") as mock_co, \
              unittest.mock.patch("urllib.request.urlopen") as mock_urlopen:
             mock_co.return_value = "ollama version 1.2.3"
             mock_urlopen.return_value = unittest.mock.Mock(status=200)

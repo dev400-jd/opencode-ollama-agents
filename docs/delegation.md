@@ -39,6 +39,17 @@ Die Profile liegen in `.opencode/agents/`. Ein Paket nennt Ziel, erlaubte
 Dateien, unveränderte Anforderungen, Abnahmekriterien und Prüfbefehle
 in höchstens etwa 200 Wörtern. Arbeiter delegieren nicht weiter.
 
+Der Koordinator lässt die optionale Modellüberschreibung beim Arbeiteraufruf
+weg: Beide Profile legen `ollama/gpt-oss:20b` fest. Falls eine Modellangabe
+erforderlich ist, muss genau diese vollständige Kennung verwendet werden.
+Nach einem Modellfehler ist ein korrigierter Versuch erlaubt, danach wird
+die Blockade gemeldet. Andere Modelle oder Rollen werden nicht ausprobiert.
+Diese Vorgabe ist eine Agentenanweisung, keine technische Sperre gegen
+Modellüberschreibungen. Nach Profiländerungen eine neue Sitzung starten.
+Ein isolierter Lesetest mit dem angepassten Profil rief beide Arbeiter
+nacheinander ohne Modellfehler auf; beide lieferten den erwarteten
+Dateiinhalt. Das belegt den Aufruf, noch keine zuverlässige Codebearbeitung.
+
 Bei Fehlerbehebungen gilt:
 
 1. `test-worker` ergänzt den Regressionstest und erhält vorhandene Tests.
